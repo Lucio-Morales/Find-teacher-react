@@ -12,7 +12,7 @@ import {
 const Landing = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate('/dashboard');
+    navigate('/register');
   };
   return (
     <>
