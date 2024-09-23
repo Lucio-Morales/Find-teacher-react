@@ -24,7 +24,7 @@ export const Form = styled.form`
 export const Input = styled.input`
   width: 100%;
   padding: 10px;
-  margin-bottom: 15px;
+
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 16px;
@@ -33,6 +33,10 @@ export const Input = styled.input`
     outline: none;
     border-color: #94b9ff;
   }
+`;
+
+export const Label = styled.label`
+  display: block;
 `;
 
 export const FormSelect = styled.select`
@@ -76,25 +80,93 @@ export const SubmitButton = styled.button`
 `;
 
 const RegisterDemo = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+  });
 
   return (
     <FormWrapper>
-      <Form onSubmit={handleSubmit}>
-        <Input type="text" placeholder="Your name" {...register('name')} />
-        <Input type="email" placeholder="Your email" {...register('email')} />
+      <Form onSubmit={onSubmit}>
+        <Label>Name</Label>
+        <Input
+          type="text"
+          placeholder="Your name"
+          {...register('name', {
+            required: { value: true, message: 'Nombre es requerido.' },
+            minLength: {
+              value: 3,
+              message: 'Debe tener al menos 3 caracteres.',
+            },
+          })}
+          style={{ marginBottom: errors.name ? '2px' : '10px' }}
+        />
+        {errors.name && (
+          <span style={{ color: 'tomato', fontSize: '14px' }}>
+            {errors.name.message}
+          </span>
+        )}
+        <Label>Email</Label>
+        <Input
+          type="email"
+          placeholder="Your email"
+          {...register('email', {
+            required: { value: true, message: 'Email es requerido.' },
+            pattern: {
+              value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+              message: 'Email invalido',
+            },
+          })}
+          style={{ marginBottom: errors.email ? '2px' : '10px' }}
+        />
+        {errors.email && (
+          <span style={{ color: 'tomato', fontSize: '14px' }}>
+            {errors.email.message}
+          </span>
+        )}
+        <Label>Password</Label>
         <Input
           type="password"
           placeholder="Your password"
-          {...register('password')}
+          {...register('password', {
+            required: { value: true, message: 'Ingrese una contraseña' },
+            minLength: {
+              value: 4,
+              message: 'Contraseña demasiado corta',
+            },
+            pattern: {
+              value: /^(?=.*\d)/,
+              message: 'La contraseña debe contener al menos un numero.',
+            },
+          })}
+          style={{ marginBottom: errors.password ? '2px' : '10px' }}
         />
-        <FormSelect {...register('role')}>
+        {errors.password && (
+          <span style={{ color: 'tomato', fontSize: '14px' }}>
+            {errors.password.message}
+          </span>
+        )}
+        <FormSelect
+          {...register('role', {
+            required: { value: true, message: 'Seleccione un rol.' },
+          })}
+        >
           <option value="" disabled selected>
             Selecciona tu rol
           </option>
           <option value="profesor">Soy profesor</option>
           <option value="estudiante">Soy estudiante</option>
         </FormSelect>
+        {errors.role && (
+          <span style={{ color: 'tomato', fontSize: '14px' }}>
+            {errors.role.message}
+          </span>
+        )}
         <SubmitButton>Submit</SubmitButton>
       </Form>
     </FormWrapper>
