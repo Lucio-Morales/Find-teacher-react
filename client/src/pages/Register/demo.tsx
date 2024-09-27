@@ -1,83 +1,5 @@
 import { useForm } from 'react-hook-form';
-import styled from 'styled-components';
-
-export const FormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  background-color: #f8f8f8;
-`;
-
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  padding: 10px;
-
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-
-  &:focus {
-    outline: none;
-    border-color: #94b9ff;
-  }
-`;
-
-export const Label = styled.label`
-  display: block;
-`;
-
-export const FormSelect = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-
-  &:focus {
-    outline: none;
-    border-color: #94b9ff;
-  }
-`;
-
-export const SubmitButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  background-color: #94b9ff;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #6882b4;
-  }
-
-  &:active {
-    background-color: #56739e;
-  }
-
-  &:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-  }
-`;
+import { Form, FormWrapper } from './styles';
 
 const RegisterDemo = () => {
   const {
@@ -93,8 +15,8 @@ const RegisterDemo = () => {
   return (
     <FormWrapper>
       <Form onSubmit={onSubmit}>
-        <Label>Name</Label>
-        <Input
+        <label>Name</label>
+        <input
           type="text"
           placeholder="Your name"
           {...register('name', {
@@ -111,8 +33,8 @@ const RegisterDemo = () => {
             {errors.name.message}
           </span>
         )}
-        <Label>Email</Label>
-        <Input
+        <label>Email</label>
+        <input
           type="email"
           placeholder="Your email"
           {...register('email', {
@@ -129,14 +51,14 @@ const RegisterDemo = () => {
             {errors.email.message}
           </span>
         )}
-        <Label>Password</Label>
-        <Input
+        <label>Password</label>
+        <input
           type="password"
           placeholder="Your password"
           {...register('password', {
             required: { value: true, message: 'Ingrese una contraseña' },
             minLength: {
-              value: 4,
+              value: 6,
               message: 'Contraseña demasiado corta',
             },
             pattern: {
@@ -151,23 +73,30 @@ const RegisterDemo = () => {
             {errors.password.message}
           </span>
         )}
-        <FormSelect
+        <label htmlFor="role">Role</label>
+        <select
+          defaultValue=""
           {...register('role', {
             required: { value: true, message: 'Seleccione un rol.' },
           })}
         >
-          <option value="" disabled selected>
+          <option value="" disabled>
             Selecciona tu rol
           </option>
           <option value="profesor">Soy profesor</option>
           <option value="estudiante">Soy estudiante</option>
-        </FormSelect>
+        </select>
+
         {errors.role && (
           <span style={{ color: 'tomato', fontSize: '14px' }}>
             {errors.role.message}
           </span>
         )}
-        <SubmitButton>Submit</SubmitButton>
+        <button>Submit</button>
+
+        <div className="redirect-text">
+          ¿Ya tienes una cuenta? <span>Ingresar</span>
+        </div>
       </Form>
     </FormWrapper>
   );

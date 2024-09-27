@@ -1,75 +1,134 @@
 import styled from 'styled-components';
 
-export const FormContainer = styled.div`
+const FormWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: #f8f8f8;
+  background-color: #f2f2f2;
+  padding: 20px; /* Padding to avoid content touching the screen edges on mobile */
 `;
 
-export const Form = styled.form`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
-  width: 400px;
-  padding: 20px;
+  width: 100%;
+  max-width: 400px; /* Maximum width for larger screens */
+  padding: 25px;
   background-color: #fff;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-`;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
 
-export const FormInput = styled.input`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
+  input,
+  select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
 
-  &:focus {
-    outline: none;
-    border-color: #94b9ff;
+    &:focus {
+      outline: none;
+      border-color: #94b9ff;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #94b9ff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+
+    &:hover {
+      background-color: #6882b4;
+      transform: translateY(-2px);
+      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      background-color: #56739e;
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  .redirect-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+
+    span {
+      cursor: pointer;
+      color: #94b9ff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #6882b4;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    /* Ajustes para pantallas medianas */
+    padding: 20px;
+
+    input,
+    select,
+    button {
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    /* Ajustes para pantallas pequeñas */
+    padding: 15px;
+
+    input,
+    select,
+    button {
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    label {
+      font-size: 13px;
+    }
+
+    button {
+      font-size: 15px;
+    }
+
+    .redirect-text {
+      font-size: 13px;
+    }
   }
 `;
 
-export const FormSelect = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-
-  &:focus {
-    outline: none;
-    border-color: #94b9ff;
-  }
-`;
-
-export const FormButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  background-color: #94b9ff;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #6882b4;
-  }
-
-  &:active {
-    background-color: #56739e;
-  }
-
-  &:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-  }
-`;
+export { FormWrapper, Form };
