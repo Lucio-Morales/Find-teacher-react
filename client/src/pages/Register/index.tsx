@@ -1,77 +1,115 @@
-import React, { useState } from 'react';
-import {
-  Form,
-  FormButton,
-  FormContainer,
-  FormInput,
-  FormSelect,
-} from './styles';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Form, FormWrapper } from './styles';
+import { registerUser, RegisterData } from '../../api/api';
 
-const Register = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    role: '',
+const RegisterForm: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterData>();
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await registerUser(data);
+      console.log(data);
+      alert('Usuario registrado con éxito.');
+    } catch (error) {
+      console.log(error);
+
+      alert('Hubo un error al intentar el registro.');
+    }
   });
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(formData);
-    setFormData({ name: '', email: '', password: '', role: '' });
-  };
-
   return (
-    <FormContainer>
-      <Form onSubmit={handleSubmit}>
-        <FormInput
+    <FormWrapper>
+      <Form onSubmit={onSubmit}>
+        <label>Name</label>
+        <input
           type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleInputChange}
+          placeholder="Your name"
+          {...register('name', {
+            required: { value: true, message: 'Nombre es requerido.' },
+            minLength: {
+              value: 3,
+              message: 'Debe tener al menos 3 caracteres.',
+            },
+          })}
+          style={{ marginBottom: errors.name ? '2px' : '10px' }}
         />
-        <FormInput
+        {errors.name && (
+          <span style={{ color: 'tomato', fontSize: '14px' }}>
+            {errors.name.message}
+          </span>
+        )}
+        <label>Email</label>
+        <input
           type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleInputChange}
+          placeholder="Your email"
+          {...register('email', {
+            required: { value: true, message: 'Email es requerido.' },
+            pattern: {
+              value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+              message: 'Email invalido',
+            },
+          })}
+          style={{ marginBottom: errors.email ? '2px' : '10px' }}
         />
-        <FormInput
+        {errors.email && (
+          <span style={{ color: 'tomato', fontSize: '14px' }}>
+            {errors.email.message}
+          </span>
+        )}
+        <label>Password</label>
+        <input
           type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleInputChange}
+          placeholder="Your password"
+          {...register('password', {
+            required: { value: true, message: 'Ingrese una contraseña' },
+            minLength: {
+              value: 6,
+              message: 'Contraseña demasiado corta',
+            },
+            pattern: {
+              value: /^(?=.*\d)/,
+              message: 'La contraseña debe contener al menos un numero.',
+            },
+          })}
+          style={{ marginBottom: errors.password ? '2px' : '10px' }}
         />
-
-        <FormSelect
-          name="role"
-          value={formData.role}
-          onChange={handleInputChange}
+        {errors.password && (
+          <span style={{ color: 'tomato', fontSize: '14px' }}>
+            {errors.password.message}
+          </span>
+        )}
+        <label htmlFor="role">Role</label>
+        <select
+          defaultValue=""
+          {...register('role', {
+            required: { value: true, message: 'Seleccione un rol.' },
+          })}
         >
           <option value="" disabled>
             Selecciona tu rol
           </option>
           <option value="profesor">Soy profesor</option>
           <option value="estudiante">Soy estudiante</option>
-        </FormSelect>
+        </select>
 
-        <FormButton type="submit">Register</FormButton>
+        {errors.role && (
+          <span style={{ color: 'tomato', fontSize: '14px' }}>
+            {errors.role.message}
+          </span>
+        )}
+        <button>Submit</button>
+
+        <div className="redirect-text">
+          ¿Ya tienes una cuenta? <span>Ingresar</span>
+        </div>
       </Form>
-    </FormContainer>
+    </FormWrapper>
   );
 };
 
-export default Register;
+export default RegisterForm;
