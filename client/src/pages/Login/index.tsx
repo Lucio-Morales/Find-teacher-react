@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; 
 import { LoginData, loginUser } from '../../api/api';
 import { Form, FormWrapper } from '../Register/styles';
 import { useForm } from 'react-hook-form';
