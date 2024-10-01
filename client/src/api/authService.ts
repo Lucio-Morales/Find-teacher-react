@@ -37,17 +37,23 @@ export const registerUser = async (data: RegisterData): Promise<void> => {
 };
 
 // LOGIN USER
-export const loginUser = async (data: LoginData) => {
-  try {
-    const response = await axios.post('http://localhost:3000/user/login', data);
-    const { token } = response.data;
-    if (token) {
-      localStorage.setItem('token', token);
-      return true;
-    }
-    return false;
-  } catch (error) {
-    console.log('Error logging in:', error);
-    return false;
+export const login = async (userData: {
+  email: string;
+  password: string;
+}): Promise<{ id: string; role: string }> => {
+  const response = await axios.post(
+    'http://localhost:3000/user/login',
+    userData
+  );
+  const { user, token } = response.data;
+
+  if (!user || !user.role) {
+    throw new Error('La respuesta no contiene un usuario válido.');
   }
+
+  // Almacenar el token y el usuario en localStorage si es necesario
+  localStorage.setItem('token', token);
+  localStorage.setItem('user', JSON.stringify(user));
+
+  return user; // Retorna el usuario
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, FormWrapper } from './styles';
-import { registerUser, RegisterData } from '../../api/api';
+import { registerUser, RegisterData } from '../../api/authService';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterForm: React.FC = () => {

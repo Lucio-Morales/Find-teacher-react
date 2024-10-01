@@ -1,27 +1,34 @@
 import React from 'react';
-import { LoginData, loginUser } from '../../api/api';
+import { LoginData } from '../../api/authService';
 import { Form, FormWrapper } from '../Register/styles';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../../components/auth/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginData>();
+  const { login } = useAuth();
 
-  const onSubmit = handleSubmit(async (data) => {
-    const isLoginSuccessful = await loginUser(data);
-
-    if (isLoginSuccessful) {
-      alert('login exitoso :D');
-    } else {
-      alert('Login failer. Please check your credentials and try again.');
+  const handleLogin = handleSubmit(
+    async (data: { email: string; password: string }) => {
+      try {
+        const user = await login(data);
+        if (user && user.role) {
+          navigate(`/${user.role}-dashboard`);
+        }
+      } catch (error) {
+        console.error('Error al iniciar sesión:', error);
+      }
     }
-  });
+  );
   return (
     <FormWrapper>
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={handleLogin}>
         <label>Email</label>
         <input
           type="text"

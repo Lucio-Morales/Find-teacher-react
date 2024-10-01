@@ -1,11 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import GlobalStyles from './styles/GlobalStyles';
+import { AuthProvider } from './components/auth/hooks/AuthContext';
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <Outlet />
+      <AuthProvider>
+        <Outlet />
+      </AuthProvider>
     </>
   );
 }
