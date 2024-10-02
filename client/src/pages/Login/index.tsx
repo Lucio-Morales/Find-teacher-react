@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LoginData } from '../../api/authService';
 import { Form, FormWrapper } from '../Register/styles';
 import { useForm } from 'react-hook-form';
@@ -12,15 +12,18 @@ const Login: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginData>();
-  const { login } = useAuth();
+  const { login, role } = useAuth();
+
+  useEffect(() => {
+    if (role) {
+      navigate(`/${role}-dashboard`);
+    }
+  }, [role, navigate]);
 
   const handleLogin = handleSubmit(
     async (data: { email: string; password: string }) => {
       try {
-        const user = await login(data);
-        if (user && user.role) {
-          navigate(`/${user.role}-dashboard`);
-        }
+        await login(data);
       } catch (error) {
         console.error('Error al iniciar sesión:', error);
       }
