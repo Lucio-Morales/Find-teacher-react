@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import GlobalStyles from './styles/GlobalStyles';
-import { AuthProvider } from './components/auth/hooks/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (

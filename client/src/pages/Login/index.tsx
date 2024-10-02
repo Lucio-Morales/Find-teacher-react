@@ -2,7 +2,7 @@ import React from 'react';
 import { LoginData } from '../../api/authService';
 import { Form, FormWrapper } from '../Register/styles';
 import { useForm } from 'react-hook-form';
-import { useAuth } from '../../components/auth/hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {

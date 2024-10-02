@@ -3,9 +3,9 @@ import App from '../App';
 import Landing from '../pages/Landing';
 import Login from '../pages/Login';
 import RegisterForm from '../pages/Register';
-import ProtectedRoute from '../components/auth/hooks/ProtectedRoute';
 import TeacherDashboard from '../pages/TeacherDashboard';
 import StudentDashboard from '../pages/StudentDashboard';
+import ProtectedRoute from '../components/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
       {
         path: '/teacher-dashboard',
         element: (
-          <ProtectedRoute requiredRole="teacher">
+          <ProtectedRoute allowedRoles={['teacher']}>
             <TeacherDashboard />
           </ProtectedRoute>
         ),
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       {
         path: '/student-dashboard',
         element: (
-          <ProtectedRoute requiredRole="student">
+          <ProtectedRoute allowedRoles={['student']}>
             <StudentDashboard />
           </ProtectedRoute>
         ),
