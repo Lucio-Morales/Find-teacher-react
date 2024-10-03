@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode } from 'react';
-import { loginUser } from '../api/authService';
+import { loginService } from '../api/authService';
 
 interface LoginData {
   email: string;
@@ -22,13 +22,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [role, setRole] = useState<string | null>(null);
 
   const login = async (data: LoginData) => {
-    const response = await loginUser(data);
-    console.log(response.user.role);
-    const userRole = response.user.role;
+    const response = await loginService(data);
+    console.log('login service', response);
 
     if (response.success) {
       setIsAuthenticated(true);
-      setRole(userRole);
+      setRole(response.user.role);
     } else {
       console.error(response.message);
     }

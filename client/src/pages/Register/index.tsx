@@ -3,25 +3,31 @@ import { useForm } from 'react-hook-form';
 import { Form, FormWrapper } from './styles';
 import { registerUser, RegisterData } from '../../api/authService';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 
 const RegisterForm: React.FC = () => {
+  const mutation = useMutation({
+    mutationFn: registerUser,
+    onSuccess: () => {
+      console.log('User registered successfully:');
+      alert('Usuario registrado con exito :D');
+      reset();
+    },
+    onError: (error) => {
+      console.error('Error registering user:', error);
+      alert('Error al registrar usuario :(');
+    },
+  });
   const navigate = useNavigate();
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterData>();
 
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      await registerUser(data);
-      console.log(data);
-      alert('Usuario registrado con éxito.');
-    } catch (error) {
-      console.log(error);
-
-      alert('Hubo un error al intentar el registro.');
-    }
+  const onSubmit = handleSubmit((data) => {
+    mutation.mutate(data);
   });
 
   return (
@@ -104,7 +110,9 @@ const RegisterForm: React.FC = () => {
             {errors.role.message}
           </span>
         )}
-        <button>Submit</button>
+        <button type="submit" disabled={mutation.isPending}>
+          {mutation.isPending ? 'Registrando...' : 'Submit'}
+        </button>
 
         <div className="redirect-text">
           ¿Ya tienes una cuenta?{' '}

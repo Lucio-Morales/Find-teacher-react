@@ -7,11 +7,13 @@ import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginData>();
+
   const { login, role } = useAuth();
 
   useEffect(() => {
@@ -20,15 +22,13 @@ const Login: React.FC = () => {
     }
   }, [role, navigate]);
 
-  const handleLogin = handleSubmit(
-    async (data: { email: string; password: string }) => {
-      try {
-        await login(data);
-      } catch (error) {
-        console.error('Error al iniciar sesión:', error);
-      }
+  const handleLogin = handleSubmit(async (data: LoginData) => {
+    try {
+      await login(data);
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
     }
-  );
+  });
   return (
     <FormWrapper>
       <Form onSubmit={handleLogin}>

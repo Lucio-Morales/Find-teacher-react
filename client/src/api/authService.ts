@@ -12,6 +12,11 @@ export interface LoginData {
   password: string;
 }
 
+interface User {
+  id: string;
+  role: string;
+}
+
 // REGISTER USER
 export const registerUser = async (data: RegisterData): Promise<void> => {
   try {
@@ -37,12 +42,12 @@ export const registerUser = async (data: RegisterData): Promise<void> => {
 };
 
 // LOGIN USER
-export const loginUser = async (userData: {
+export const loginService = async (userData: {
   email: string;
   password: string;
 }): Promise<{
   id: string;
-  role: string;
+  user: User;
   message: string;
   success: boolean;
 }> => {
@@ -50,10 +55,9 @@ export const loginUser = async (userData: {
     'http://localhost:3000/user/login',
     userData
   );
-  console.log(response);
+  console.log(response.data);
 
   const { user } = response.data;
-  // console.log(user);
 
   if (!user || !user.role) {
     throw new Error('La respuesta no contiene un usuario válido.');
