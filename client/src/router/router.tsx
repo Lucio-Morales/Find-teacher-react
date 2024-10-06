@@ -6,6 +6,9 @@ import RegisterForm from '../pages/Register';
 import TeacherDashboard from '../pages/TeacherDashboard';
 import StudentDashboard from '../pages/StudentDashboard';
 import ProtectedRoute from '../components/ProtectedRoute';
+import Publications from '../pages/TeacherDashboard/pages/Publications';
+import YourStudents from '../pages/TeacherDashboard/pages/YourStudents';
+import Forum from '../pages/TeacherDashboard/pages/Foro';
 
 const router = createBrowserRouter([
   {
@@ -17,11 +20,31 @@ const router = createBrowserRouter([
       { path: '/login', element: <Login /> },
       {
         path: '/teacher-dashboard',
-        element: (
-          <ProtectedRoute allowedRoles={['teacher']}>
-            <TeacherDashboard />
-          </ProtectedRoute>
-        ),
+        // element: (
+
+        element: <TeacherDashboard />,
+        //   <ProtectedRoute allowedRoles={['teacher']}>
+        //   </ProtectedRoute>
+        // ),
+        children: [
+          {
+            path: '',
+            element: <Publications />,
+            index: true,
+          },
+          {
+            path: 'publications',
+            element: <Publications />,
+          },
+          {
+            path: 'your_students',
+            element: <YourStudents />,
+          },
+          {
+            path: 'forum',
+            element: <Forum />,
+          },
+        ],
       },
       {
         path: '/student-dashboard',

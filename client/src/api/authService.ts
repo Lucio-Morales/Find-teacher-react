@@ -55,7 +55,7 @@ export const loginService = async (userData: {
     'http://localhost:3000/user/login',
     userData
   );
-  console.log(response.data);
+  // console.log(response.data);
 
   const { user } = response.data;
 

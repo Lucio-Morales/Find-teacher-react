@@ -2,19 +2,32 @@ import React, { useEffect } from 'react';
 import { LoginData } from '../../api/authService';
 import { Form, FormWrapper } from '../Register/styles';
 import { useForm } from 'react-hook-form';
-import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { useAuth } from '../../hooks/useAuth';
 
 const Login: React.FC = () => {
+  const { login, role } = useAuth();
   const navigate = useNavigate();
+  const mutation = useMutation({
+    mutationFn: login,
+    onSuccess: () => {
+      console.log('Login exitoso');
+      alert('Login exitoso');
+      reset();
+    },
+    onError: (error) => {
+      console.error('Error in login:', error);
+      alert('Error in login :(');
+    },
+  });
 
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginData>();
-
-  const { login, role } = useAuth();
 
   useEffect(() => {
     if (role) {
@@ -22,12 +35,9 @@ const Login: React.FC = () => {
     }
   }, [role, navigate]);
 
-  const handleLogin = handleSubmit(async (data: LoginData) => {
-    try {
-      await login(data);
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-    }
+  const handleLogin = handleSubmit(() => {
+    // mutation.mutate(data);
+    navigate('/teacher-dashboard');
   });
   return (
     <FormWrapper>
@@ -73,7 +83,9 @@ const Login: React.FC = () => {
           </span>
         )}
 
-        <button>Login</button>
+        <button type="submit" disabled={mutation.isPending}>
+          {mutation.isPending ? 'Logueando...' : 'Submit'}
+        </button>
       </Form>
     </FormWrapper>
   );
