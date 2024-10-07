@@ -9,6 +9,10 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import Publications from '../pages/TeacherDashboard/pages/Publications';
 import YourStudents from '../pages/TeacherDashboard/pages/YourStudents';
 import Forum from '../pages/TeacherDashboard/pages/Foro';
+import Explore from '../pages/Explore';
+import Popular from '../pages/Explore/pages/Popular';
+import EducationalNews from '../pages/Explore/pages/EducationalNews';
+import TopEducators from '../pages/Explore/pages/TopEducators';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +47,29 @@ const router = createBrowserRouter([
           {
             path: 'forum',
             element: <Forum />,
+          },
+        ],
+      },
+      {
+        path: 'explore',
+        element: <Explore />,
+        children: [
+          {
+            path: '',
+            element: <Popular />,
+            index: true,
+          },
+          {
+            path: 'popular',
+            element: <Popular />,
+          },
+          {
+            path: 'educational_news',
+            element: <EducationalNews />,
+          },
+          {
+            path: 'top_educators',
+            element: <TopEducators />,
           },
         ],
       },

@@ -6,7 +6,7 @@ const FormWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: #f2f2f2;
+  // background-color: #f2f2f2;
   padding: 20px; /* Padding to avoid content touching the screen edges on mobile */
 `;
 
