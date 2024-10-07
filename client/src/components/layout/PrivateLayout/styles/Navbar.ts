@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Nav = styled.nav`
   all: unset;
@@ -15,7 +15,14 @@ const Nav = styled.nav`
   }
 `;
 
-const NavLinkItem = styled.div`
+interface NavLinkItemProps {
+  active: string | boolean | undefined;
+  onClick: () => void;
+}
+
+const NavLinkItem = styled.div.withConfig({
+  shouldForwardProp: (prop) => 'active' !== prop,
+})<NavLinkItemProps>`
   display: flex;
   width: 100%;
   gap: 1rem;
@@ -32,12 +39,42 @@ const NavLinkItem = styled.div`
   @media (min-width: 1280px) {
     padding: 0 0.5rem;
   }
-    .navItemText {
-		display: none;
-		@media (min-width: 1280px) {
-			display: flex;
-			white-space: nowrap;
-		}
+  ${({ active }) =>
+    active &&
+    css`
+      color: ${({ theme }) => theme.text};
+    `}
+  @media (hover: hover) {
+    &:hover {
+      @media (min-width: 431px) {
+        background: ${({ theme }) => theme.grey07};
+      }
+    }
+  }
+  .navItemIcon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .navItemArrowIcon {
+    display: none;
+    @media (min-width: 1280px) {
+      width: 45px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .navItemText {
+    display: none;
+    @media (min-width: 1280px) {
+      display: flex;
+      white-space: nowrap;
+    }
+  }
 `;
 
 export { Nav, NavLinkItem };
