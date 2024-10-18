@@ -19,17 +19,16 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { path: '', element: <Landing /> },
+      { path: '', element: <Landing />, index: true },
       { path: '/register', element: <RegisterForm /> },
       { path: '/login', element: <Login /> },
       {
         path: '/teacher-dashboard',
-        // element: (
-
-        element: <TeacherDashboard />,
-        //   <ProtectedRoute allowedRoles={['teacher']}>
-        //   </ProtectedRoute>
-        // ),
+        element: (
+          <ProtectedRoute allowedRoles={['teacher']}>
+            <TeacherDashboard />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: '',

@@ -8,6 +8,7 @@ import {
   RightSection,
   Title,
 } from './styles';
+import imageDemo from '/image-demo.jpg';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Landing = () => {
         </LeftSection>
         <RightSection>
           <Image
-            src="https://via.placeholder.com/600x400.webP"
+            src={imageDemo}
             alt="Representación de clases particulares"
             width="600"
             height="400"

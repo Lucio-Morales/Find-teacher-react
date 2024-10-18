@@ -25,7 +25,7 @@ export const registerUser = async (data: RegisterData): Promise<void> => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data), // Convertimos los datos del formulario a JSON
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
@@ -34,10 +34,9 @@ export const registerUser = async (data: RegisterData): Promise<void> => {
 
     const result = await response.json();
     console.log('Usuario registrado con éxito:', result);
-    // Aquí puedes manejar la respuesta según tus necesidades
   } catch (error) {
     console.error('Error al registrar el usuario:', error);
-    throw error; // Re-lanzamos el error para manejarlo en el componente
+    throw error;
   }
 };
 

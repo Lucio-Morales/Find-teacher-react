@@ -6,20 +6,20 @@ const FormWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-  // background-color: #f2f2f2;
-  padding: 20px; /* Padding to avoid content touching the screen edges on mobile */
+  background-color: #999999;
+  padding: 20px;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 400px; /* Maximum width for larger screens */
+  max-width: 400px;
   padding: 25px;
-  background-color: #fff;
+  background-color: #cccccc;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  border: 1px solid #e0e0e0;
+  // border: 1px solid #e0e0e0;
 
   input,
   select {
@@ -83,7 +83,7 @@ const Form = styled.form`
 
     span {
       cursor: pointer;
-      color: #94b9ff;
+      color: #0f52ba;
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s;
