@@ -86,6 +86,16 @@ const Login: React.FC = () => {
         <button type="submit" disabled={mutation.isPending}>
           {mutation.isPending ? 'Logueando...' : 'Submit'}
         </button>
+        <div className="redirect-text">
+          ¿Eres nuevo?{' '}
+          <span
+            onClick={() => {
+              navigate('/register');
+            }}
+          >
+            Registrarse
+          </span>
+        </div>
       </Form>
     </FormWrapper>
   );

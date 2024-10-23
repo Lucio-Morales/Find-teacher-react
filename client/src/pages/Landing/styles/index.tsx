@@ -5,7 +5,7 @@ export const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   height: 100vh;
   padding: 20px;
-  background-color: #f8f8f8;
+  // background-color: #f8f8f8;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -28,7 +28,7 @@ export const LeftSection = styled.div`
 export const Title = styled.h1`
   font-size: 3rem;
   font-weight: bold;
-  color: #060215;
+  // color: #060215;
   margin-bottom: 20px;
 
   @media (max-width: 768px) {
@@ -38,7 +38,7 @@ export const Title = styled.h1`
 
 export const Description = styled.p`
   font-size: 1.2rem;
-  color: #333;
+  // color: #333;
   margin-bottom: 40px;
 
   @media (max-width: 768px) {
@@ -49,16 +49,16 @@ export const Description = styled.p`
 
 export const Button = styled.button`
   padding: 15px 30px;
-  font-size: 1rem;
+  font-size: 1.4rem;
   color: white;
-  background-color: #94b9ff;
-  border: none;
-  border-radius: 5px;
+  background-color: black;
+  border: 1px solid white;
+  // border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #6882b4;
+    background-color: grey;
   }
 
   @media (max-width: 768px) {
@@ -80,5 +80,5 @@ export const RightSection = styled.div`
 export const Image = styled.img`
   max-width: 100%;
   height: auto;
-  border-radius: 10px;
+  // border-radius: 10px;
 `;

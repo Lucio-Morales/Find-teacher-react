@@ -5,7 +5,7 @@ import Login from '../pages/Login';
 import RegisterForm from '../pages/Register';
 import TeacherDashboard from '../pages/TeacherDashboard';
 import StudentDashboard from '../pages/StudentDashboard';
-import ProtectedRoute from '../components/ProtectedRoute';
+// import ProtectedRoute from '../components/ProtectedRoute';
 import Publications from '../pages/TeacherDashboard/pages/Publications';
 import YourStudents from '../pages/TeacherDashboard/pages/YourStudents';
 import Forum from '../pages/TeacherDashboard/pages/Foro';
@@ -13,6 +13,9 @@ import Explore from '../pages/Explore';
 import Popular from '../pages/Explore/pages/Popular';
 import EducationalNews from '../pages/Explore/pages/EducationalNews';
 import TopEducators from '../pages/Explore/pages/TopEducators';
+import Messages from '../pages/Messages';
+import AllMessages from '../pages/Messages/pages/AllMessages';
+import Requests from '../pages/Messages/pages/Requests';
 
 const router = createBrowserRouter([
   {
@@ -24,11 +27,11 @@ const router = createBrowserRouter([
       { path: '/login', element: <Login /> },
       {
         path: '/teacher-dashboard',
-        element: (
-          <ProtectedRoute allowedRoles={['teacher']}>
-            <TeacherDashboard />
-          </ProtectedRoute>
-        ),
+        // element: (
+        //   <ProtectedRoute allowedRoles={['teacher']}>
+        element: <TeacherDashboard />,
+        //   </ProtectedRoute>
+        // ),
         children: [
           {
             path: '',
@@ -73,12 +76,21 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: 'messages',
+        element: <Messages />,
+        children: [
+          { path: '', element: <AllMessages />, index: true },
+          { path: 'all', element: <AllMessages /> },
+          { path: 'requests', element: <Requests /> },
+        ],
+      },
+      {
         path: '/student-dashboard',
-        element: (
-          <ProtectedRoute allowedRoles={['student']}>
-            <StudentDashboard />
-          </ProtectedRoute>
-        ),
+        // element: (
+        //   <ProtectedRoute allowedRoles={['student']}>
+        element: <StudentDashboard />,
+        // </ProtectedRoute>
+        // ),
       },
     ],
   },

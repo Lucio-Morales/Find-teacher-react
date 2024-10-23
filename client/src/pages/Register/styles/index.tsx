@@ -6,7 +6,7 @@ const FormWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: #999999;
+  // background-color: #999999;
   padding: 20px;
 `;
 
@@ -16,25 +16,27 @@ const Form = styled.form`
   width: 100%;
   max-width: 400px;
   padding: 25px;
-  background-color: #cccccc;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  // border: 1px solid #e0e0e0;
+  // background-color: #cccccc;
+  // box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+  // border-radius: 12px;
+  border: 1px solid #e0e0e0;
 
   input,
   select {
+    background-color: white;
     width: 100%;
     padding: 12px 15px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    // border: 1px solid #ccc;
+    // border-radius: 8px;
     font-size: 15px;
     transition: border-color 0.3s, box-shadow 0.3s;
 
     &:focus {
       outline: none;
-      border-color: #94b9ff;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      border-color: silver;
+      background: white;
+      // box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
   }
 
@@ -42,24 +44,24 @@ const Form = styled.form`
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 5px;
-    color: #333;
+    color: silver;
   }
 
   button {
     width: 100%;
     padding: 12px;
     margin-top: 20px;
-    background-color: #94b9ff;
+    background-color: black;
     color: #fff;
     font-size: 16px;
     font-weight: bold;
-    border: none;
-    border-radius: 8px;
+    border: 1px solid silver;
+    // border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 
     &:hover {
-      background-color: #6882b4;
+      background-color: grey;
       transform: translateY(-2px);
       box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
     }
@@ -83,13 +85,13 @@ const Form = styled.form`
 
     span {
       cursor: pointer;
-      color: #0f52ba;
+      color: silver;
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s;
 
       &:hover {
-        color: #6882b4;
+        color: grey;
       }
     }
   }
